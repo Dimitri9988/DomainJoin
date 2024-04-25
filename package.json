@@ -1,0 +1,31 @@
+{
+  "name": "DomainJoin",
+  "version": "1.3.0",
+  "description": "",
+  "main": "main.js",
+  "build": {
+    "appId": "com.exmple.myapp",
+    "win": {
+      "target": "nsis",
+      "icon": "./electronResources/iconDomainJoin.png"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron"
+  },
+  "bin": {
+    "index": "./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "exec": "^0.2.1",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "electron": "^30.0.1",
+    "electron-builder": "^24.13.3"
+  }
+}

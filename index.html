@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Join Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Domain Join Tool</h1>
+        <p>Diese Applikation muss als Administrator ausgefürt werden</p>
+        
+        <label for="domainAdminUsername">*Domain Admin Username:</label>
+        <input type="text" id="domainAdminUsername" name="domainAdminUsername" placeholder="Administrator@local.ch" required>
+
+        <label for="domainAdminPassword">*Domain Admin Password:</label>
+        <div class="password-container">
+            <input type="password" id="domainAdminPassword" name="domainAdminPassword" placeholder="Admin123"  required>
+            <div id="showPasswordContainer">
+                <input type="checkbox" id="showPassword">
+            </div>
+        </div>
+        
+        <label for="domain">*Domain:</label>
+        <input type="text" id="domain" name="domain" placeholder="local.ch"  required>
+        
+        <label class="ou" id="ouLabel" for="ouInput">OU angeben:</label>
+        <input class="ou" type="text" id="ouInput" name="ouInput" placeholder="OU=BeispielOU,DC=Domain,DC=com">
+
+        <button id="ouButton">OU hinzufügen</button>
+        <button id="runScriptButton">Run PowerShell Script</button>
+        
+    </div>
+
+    <script>
+        const byId = (id)=> document.getElementById(id);
+        let buttonPressed = false
+
+        document.getElementById('runScriptButton').addEventListener('click', () => {
+            const domainAdminUsername = document.getElementById('domainAdminUsername').value;
+            const domainAdminPassword = document.getElementById('domainAdminPassword').value;
+            const domain = document.getElementById('domain').value;
+            const OU = byId("ouInput").value
+
+            // Überprüfung, ob alle Felder ausgefüllt sind
+            if (!domainAdminUsername || !domainAdminPassword || !domain) {
+                alert('Bitte füllen Sie alle Felder aus.');
+                return;
+            }
+
+            fetch('http://localhost:3000/run-script', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ domainAdminUsername, domainAdminPassword, domain, buttonPressed, OU })
+            })
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+        });
+
+        document.getElementById('showPassword').addEventListener('change', () => {
+            const passwordInput = document.getElementById('domainAdminPassword');
+            passwordInput.type = document.getElementById('showPassword').checked ? 'text' : 'password';
+        });
+
+        byId("ouButton").addEventListener("click", ()=>{
+            if (byId("ouInput").style.display === "") {
+                byId("ouLabel").style.display = "block";
+                byId("ouInput").style.display = "block";
+                byId("ouButton").innerHTML = "OU Entfernen"
+                buttonPressed = true
+
+            } else {
+                byId("ouLabel").style.display = "";
+                byId("ouInput").style.display = "";
+                byId("ouButton").innerHTML = "OU Hinzufügen"
+                buttonPressed = false
+            }
+            console.log(buttonPressed)
+        })
+    </script>
+</body>
+</html>
