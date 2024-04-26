@@ -33,6 +33,7 @@
             <option value="2">2</option>
             <option value="3">3</option>
         </select>
+        <p id="result"></p>
         <br>
         <button id="ouButton">OU hinzufügen</button>
         <button id="runScriptButton">Run PowerShell Script</button>
@@ -42,6 +43,12 @@
     <script>
         const byId = (id)=> document.getElementById(id);
         let buttonPressed = false
+
+        const OUs = fetch("http://localhost:3000/ou", {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => response.json()).then(OUs => console.log(OUs));
 
         document.getElementById('runScriptButton').addEventListener('click', () => {
             const domainAdminUsername = document.getElementById('domainAdminUsername').value;

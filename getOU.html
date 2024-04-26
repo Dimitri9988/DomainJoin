@@ -16,6 +16,8 @@
             
             <button id="runScriptButton">Bestätigen</button><br>
             <button id="proceed">Weiter</button>
+
+            <p class="output" id="outputOU">Ausgabe Konsole :<br>Test123</p>
         </div>
     </div>
 
@@ -23,7 +25,6 @@
 
     <script>
         const byId = (id)=> document.getElementById(id);
-        
 
         byId('runScriptButton').addEventListener('click', () => {
 
@@ -44,7 +45,11 @@
                 body: JSON.stringify({ domain })
             })
             .then(response => response.text())
-            .then(data => console.log(data))
+            .then(data => {
+                byId("outputOU").innerHTML += "<br>"+JSON.stringify(data);
+                console.log(data);
+
+            })
             .catch(error => console.error(error));
             byId("runScriptButton").setAttribute("disabled", "disabled")
             byId("proceed").style.display = "block"

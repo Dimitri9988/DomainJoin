@@ -5,11 +5,15 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
-let OUs = [];
+let OUs = [
+  {name: "test",distinguishedName: "test.local"},
+  {name: "test2",distinguishedName: "test2.local"}
+];
 
 // Middleware to parse JSON data in the request body
 app.use(bodyParser.json());
 
+app.get("/ou", (req,res)=>{res.json(OUs)});
 
 // Route for executing the PowerShell script
 app.post('/run-script', (req, res) => {
@@ -106,7 +110,7 @@ app.post('/run-OUscript', (req, res) => {
     OUs.push(parsedData); // Daten zum Array hinzufügen
   
     console.log(`stdout: ${decodedData}`);
-    console.log("Das OUs Array =" + JSON.stringify(OUs)); // JSON.stringify zum Konsolenausdruck
+    // console.log("Das OUs Array =" + JSON.stringify(OUs)); // JSON.stringify zum Konsolenausdruck
   });
 
   powershell.stderr.on('data', (data) => {
