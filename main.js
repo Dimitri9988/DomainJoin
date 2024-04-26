@@ -17,7 +17,7 @@ function createWindow() {
         shell.openExternal(url, { admin: true });
     });
 
-    win.loadFile('index.html');
+    win.loadFile('getOU.html');
 }
 
 app.whenReady().then(createWindow);

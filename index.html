@@ -26,8 +26,14 @@
         <input type="text" id="domain" name="domain" placeholder="local.ch"  required>
         
         <label class="ou" id="ouLabel" for="ouInput">OU angeben:</label>
-        <input class="ou" type="text" id="ouInput" name="ouInput" placeholder="OU=BeispielOU,DC=Domain,DC=com">
+        <!-- <input class="ou" type="text" id="ouInput" name="ouInput" placeholder="OU=BeispielOU,DC=Domain,DC=com"> -->
 
+        <select name="ouInput" id="ouInput" class="dropdown ou">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <br>
         <button id="ouButton">OU hinzufügen</button>
         <button id="runScriptButton">Run PowerShell Script</button>
         
@@ -67,16 +73,16 @@
         });
 
         byId("ouButton").addEventListener("click", ()=>{
-            if (byId("ouInput").style.display === "") {
-                byId("ouLabel").style.display = "block";
-                byId("ouInput").style.display = "block";
+            if (byId("ouInput").style.visibility === "hidden") {
+                byId("ouLabel").style.visibility = "visible";
+                byId("ouInput").style.visibility = "visible";
                 byId("ouButton").innerHTML = "OU Entfernen"
                 buttonPressed = true
 
             } else {
-                byId("ouLabel").style.display = "";
-                byId("ouInput").style.display = "";
-                byId("ouButton").innerHTML = "OU Hinzufügen"
+                byId("ouLabel").style.visibility = "hidden";
+                byId("ouInput").style.visibility = "hidden";
+                byId("ouButton").innerHTML = "OU hinzufügen"
                 buttonPressed = false
             }
             console.log(buttonPressed)

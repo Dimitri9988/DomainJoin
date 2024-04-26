@@ -52,6 +52,7 @@ button {
     color: #fff;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -68,5 +69,17 @@ button:hover {
 }
 
 .ou {
+    visibility: hidden;
+}
+#proceed {
     display: none;
+}
+
+.dropdown {
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+    padding: 6px;
+    border-radius: 5px;
+    border-color: #555;
 }

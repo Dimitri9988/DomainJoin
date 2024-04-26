@@ -1,6 +1,6 @@
 {
   "name": "DomainJoin",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "",
   "main": "main.js",
   "build": {
@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron"
+    "start": "electron",
+    "build": "npx electron-builder"
   },
   "bin": {
     "index": "./index.js"
